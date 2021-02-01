@@ -165,5 +165,70 @@ namespace TamagotchiAPI.Controllers
         {
             return _context.Pets.Any(pet => pet.Id == id);
         }
+
+        [HttpPost("{id}/Plays")]
+        public async Task<ActionResult<Play>> PlayWithPet(int id, Play play)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            play.PetId = pet.Id;
+
+            pet.HungerLevel += 3;
+            pet.HappinessLevel += 5;
+
+            _context.Plays.Add(play);
+            await _context.SaveChangesAsync();
+
+            return Ok(play);
+        }
+
+
+        [HttpPost("{id}/Feeds")]
+        public async Task<ActionResult<Feed>> FeedPet(int id, Feed feed)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            feed.PetId = pet.Id;
+
+            pet.HungerLevel -= 5;
+            pet.HappinessLevel += 3;
+
+            _context.Feeds.Add(feed);
+            await _context.SaveChangesAsync();
+
+            return Ok(feed);
+        }
+
+
+        [HttpPost("{id}/Scolds")]
+        public async Task<ActionResult<Scold>> ScoldPet(int id, Scold scold)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            scold.PetId = pet.Id;
+
+            pet.HappinessLevel -= 5;
+
+            _context.Scolds.Add(scold);
+            await _context.SaveChangesAsync();
+
+            return Ok(scold);
+        }
+
     }
 }
