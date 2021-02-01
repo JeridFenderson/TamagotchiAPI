@@ -180,6 +180,7 @@ namespace TamagotchiAPI.Controllers
 
             pet.HungerLevel += 3;
             pet.HappinessLevel += 5;
+            pet.LastInteractedWith = DateTime.Now;
 
             _context.Plays.Add(play);
             await _context.SaveChangesAsync();
@@ -202,6 +203,7 @@ namespace TamagotchiAPI.Controllers
 
             pet.HungerLevel -= 5;
             pet.HappinessLevel += 3;
+            pet.LastInteractedWith = DateTime.Now;
 
             _context.Feeds.Add(feed);
             await _context.SaveChangesAsync();
@@ -223,6 +225,7 @@ namespace TamagotchiAPI.Controllers
             scold.PetId = pet.Id;
 
             pet.HappinessLevel -= 5;
+            pet.LastInteractedWith = DateTime.Now;
 
             _context.Scolds.Add(scold);
             await _context.SaveChangesAsync();

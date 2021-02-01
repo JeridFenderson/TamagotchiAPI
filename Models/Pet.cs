@@ -9,5 +9,17 @@ namespace TamagotchiAPI.Models
         public DateTime Birthday { get; set; } = DateTime.Now;
         public int HungerLevel { get; set; } = 0;
         public int HappinessLevel { get; set; } = 0;
+        public DateTime LastInteractedWith { get; set; } = DateTime.Now;
+        public bool IsDead() 
+        {
+            if ((DateTime.Now - LastInteractedWith).TotalDays > 3)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
