@@ -10,15 +10,11 @@ namespace TamagotchiAPI.Models
         public int HungerLevel { get; set; } = 0;
         public int HappinessLevel { get; set; } = 0;
         public DateTime LastInteractedWith { get; set; } = DateTime.Now;
-        public bool IsDead() 
+        public bool IsDead
         {
-            if ((DateTime.Now - LastInteractedWith).TotalDays > 3)
+            get
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                return ((DateTime.Now - LastInteractedWith).TotalDays > 3) ? true: false;
             }
         }
     }

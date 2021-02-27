@@ -232,6 +232,5 @@ namespace TamagotchiAPI.Controllers
 
             return Ok(scold);
         }
-
     }
 }
